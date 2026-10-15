@@ -31,10 +31,12 @@ export const isSupabaseConfigured = Boolean(
   getSupabaseUrl() && getAnonKey(),
 );
 
-export const supabase: SupabaseClient = createClient(
-  getSupabaseUrl() || "https://placeholder.supabase.co",
-  getAnonKey() || "public-anon-key",
-);
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://mexjgwyobaqjwmiuyofz.supabase.co';
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'sb_publishable_dummy_key';
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export function getServerSupabase(): SupabaseClient {
   const url = getSupabaseUrl();
